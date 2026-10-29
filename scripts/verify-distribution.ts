@@ -55,6 +55,9 @@ try {
   );
   if (!extension?.commands.has("primitive-connect") ||
       !extension.commands.has("primitive-status")) throw new ReceiverError("installed_commands_missing");
+  if (!extension.tools.has("primitive_connect") ||
+      !extension.tools.has("primitive_status")) throw new ReceiverError("installed_tools_missing");
+  await readFile(join(installed, "skills", "primitive-receiver", "SKILL.md"), "utf8");
   console.log(JSON.stringify({
     productionInstall: "passed",
     upstreamPiLoader: "passed",

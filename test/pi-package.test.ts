@@ -38,6 +38,8 @@ describe("upstream Pi package compatibility", () => {
     );
     expect(extension?.commands.has("primitive-connect")).toBe(true);
     expect(extension?.commands.has("primitive-status")).toBe(true);
+    expect(extension?.tools.has("primitive_connect")).toBe(true);
+    expect(extension?.tools.has("primitive_status")).toBe(true);
     expect(extension?.handlers.has("session_start")).toBe(true);
     expect(extension?.handlers.has("session_shutdown")).toBe(true);
   }, 15_000);

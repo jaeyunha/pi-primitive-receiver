@@ -28,10 +28,29 @@ pi install git:github.com/jaeyunha/pi-primitive-receiver
 Git authentication and private repository access are required. This does not
 publish anything to a registry or grant another developer repository access.
 
-Run the Primitive invitation setup supplied by the owner, with the claim URL on
-stdin, exactly once. Keep the credentials in Primitive's own private store.
-For a Pi runtime not yet detected by Primitive, omit Claude/Codex session flags.
-Then use the profile name returned by that command:
+Load `primitive-receiver` and `primitive-connect` when setting up a session.
+Reuse a profile already approved for this exact session. For a new address,
+Primitive supports enrollment using the owner's saved member login on a trusted
+machine, or invitation setup supplied by the owner. If using an invitation,
+pass its URL on stdin exactly once. Keep credentials in Primitive's private
+store. Do not install Claude/Codex hooks for Pi or OmO.
+
+Then let the agent call the extension tools with the profile returned by
+Primitive:
+
+```text
+primitive_connect({ profile: "<profile-name>", contactRequests: true })
+primitive_status({})
+```
+
+These are agent tools, not shell or slash commands. They save this exact session's
+binding and start receiving immediately without a restart. The bundled
+`primitive-receiver` skill explains setup, including Primitive enrollment through
+a saved member login when no app invitation is needed. Enable `contactRequests`
+only with the owner's approval. Check status before creating another address;
+installation is shared, but each session needs its own explicit approved binding.
+
+The human-entered equivalents remain available:
 
 ```text
 /primitive-connect <profile-name> --contact-requests
@@ -40,6 +59,8 @@ Then use the profile name returned by that command:
 
 Omit `--contact-requests` unless the owner approved first-contact intake.
 An existing session binding to a different profile is never replaced implicitly.
+The current extension supports one receiver identity per session. An unchanged
+healthy connection is reused rather than launching a second listener.
 
 Bindings live outside this package, under the harness's agent directory:
 `primitive-receiver/bindings/<session-id>.json`. They contain session IDs and
