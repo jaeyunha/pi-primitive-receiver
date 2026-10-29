@@ -24,7 +24,7 @@
   "pi": { "extensions": ["./index.ts"] },
   "scripts": {
     "check": "tsc --noEmit",
-    "lint": "oxlint --deny-warnings",
+    "lint": "oxlint --type-aware --deny-warnings",
     "test": "bun test",
     "verify:package": "bun scripts/verify-distribution.ts"
   },
@@ -35,8 +35,9 @@
   "devDependencies": {
     "@earendil-works/pi-coding-agent": "1.4.0",
     "@types/bun": "latest",
-    "typescript": "^5.9.0",
+    "typescript": "7.0.2",
     "oxlint": "1.89.0",
+    "oxlint-tsgolint": "7.0.2005",
     "oxfmt": "0.74.0"
   }
 }

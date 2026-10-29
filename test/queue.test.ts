@@ -92,7 +92,9 @@ describe("durable session notice queue", () => {
       throw new ReceiverError("runtime_stopped");
     });
     await first.open([]);
-    await expect(first.enqueue(notice, current)).rejects.toBeInstanceOf(ReceiverError);
+    expect(await first.enqueue(notice, current).then(
+      () => undefined, (error: unknown) => error,
+    )).toBeInstanceOf(ReceiverError);
     const restored = new NoticeQueue(path, binding, () => {});
     // When
     const pending = await restored.open([]);
@@ -113,7 +115,7 @@ describe("durable session notice queue", () => {
     // When
     const restored = other.open([]);
     // Then
-    await expect(restored).rejects.toBeInstanceOf(ReceiverError);
+    expect(await restored.then(() => undefined, (error: unknown) => error)).toBeInstanceOf(ReceiverError);
   });
 
   test("bounds request candidates across receiver restarts", async () => {
@@ -147,7 +149,7 @@ describe("durable session notice queue", () => {
       throw new ReceiverError("permission_changed");
     });
     // Then
-    await expect(dispatch).rejects.toBeInstanceOf(ReceiverError);
+    expect(await dispatch.then(() => undefined, (error: unknown) => error)).toBeInstanceOf(ReceiverError);
     expect(delivered).toEqual([]);
     const restored = new NoticeQueue(path, binding, () => {});
     expect(await restored.open([])).toEqual([notice]);

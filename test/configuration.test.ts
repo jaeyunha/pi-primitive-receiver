@@ -76,6 +76,6 @@ describe("portable private session configuration", () => {
     // When
     const other = loadBinding(root, otherId);
     // Then
-    await expect(other).rejects.toBeInstanceOf(ReceiverError);
+    expect(await other.then(() => undefined, (error: unknown) => error)).toBeInstanceOf(ReceiverError);
   });
 });

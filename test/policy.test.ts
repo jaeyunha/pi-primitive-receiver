@@ -106,7 +106,7 @@ describe("Primitive's real contact-policy evaluator", () => {
     // When
     const admission = policy.admit(SENDER, RECEIVED, signal, EMAIL_ID);
     // Then
-    await expect(admission).rejects.toBeInstanceOf(Error);
+    expect(await admission.then(() => undefined, (error: unknown) => error)).toBeInstanceOf(Error);
   });
 
   test("refuses dispatch when permission changes after admission", async () => {
@@ -127,7 +127,9 @@ describe("Primitive's real contact-policy evaluator", () => {
     // When
     permitted = false;
     // Then
-    await expect(policy.recheck(admission, signal)).rejects.toBeInstanceOf(Error);
+    expect(await policy.recheck(admission, signal).then(
+      () => undefined, (error: unknown) => error,
+    )).toBeInstanceOf(Error);
   });
 
   test("refuses ordinary unknown mail without a contact grant", async () => {
