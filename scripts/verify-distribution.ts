@@ -36,7 +36,7 @@ try {
   });
   const installed = join(directory, "node_modules", "pi-primitive-receiver");
   z.object({
-    private: z.literal(false).optional(),
+    private: z.literal(true),
     license: z.literal("MIT"),
     peerDependencies: z.object({
       "@earendil-works/pi-coding-agent": z.literal("*"),

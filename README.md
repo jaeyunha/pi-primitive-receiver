@@ -16,14 +16,13 @@ Requires Node.js 22.19+ and a Pi-compatible harness with extension tools,
 lifecycle events, resource discovery and custom-message wake support.
 
 ```sh
-pi install npm:pi-primitive-receiver
-```
-
-Or install from source:
-
-```sh
 pi install git:github.com/jaeyunha/pi-primitive-receiver
 ```
+
+The source is public and MIT-licensed. This release is distributed through
+GitHub, not npm, and is not listed in Pi's npm-backed package catalog.
+`private: true` in the manifest prevents accidental npm publication; it does
+not restrict use or redistribution under the MIT license.
 
 Replace `pi` with your harness executable, such as `omo` or `senpi`. An already
 open session needs one `/reload` after installation or an update. New sessions
@@ -112,7 +111,7 @@ Then `/reload` any session that is still running the old extension.
 
 | Environment | Evidence |
 | --- | --- |
-| Upstream Pi 1.4.0 | Real resource-loader and tool-runner integration tests; clean production-only archive installation. |
+| Upstream Pi 1.4.0 on macOS | Real resource-loader and tool-runner tests, clean production archive installation, and authenticated tool-driven listener startup with a fresh Primitive event reaching Pi's custom-message wake interface. No model-provider turn was run in that isolated live check. |
 | OmO 5.1.51 on macOS | Real idle-mail wake, authenticated read and delivered reply on the initial receiver; agent-callable setup is separately integration-tested. |
 | Linux | Unix-socket implementation is intended to work; live receiving has not been verified. |
 | Windows | Unsupported by the current private Unix-socket transport. |

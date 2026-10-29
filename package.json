@@ -1,5 +1,6 @@
 {
   "name": "pi-primitive-receiver",
+  "private": true,
   "description": "Primitive mail receiving and idle wake for Pi-compatible coding agents (experimental)",
   "license": "MIT",
   "author": "jaeyunha",
@@ -11,7 +12,6 @@
   "bugs": { "url": "https://github.com/jaeyunha/pi-primitive-receiver/issues" },
   "keywords": ["pi-package", "pi-extension", "primitive", "email"],
   "engines": { "node": ">=22.19.0" },
-  "publishConfig": { "access": "public" },
   "files": [
     "index.ts",
     "entry.ts",
