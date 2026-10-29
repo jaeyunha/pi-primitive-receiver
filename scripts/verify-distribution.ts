@@ -27,13 +27,21 @@ try {
     /(^|\/)(bindings|node_modules|test|\.git)(\/|$)/.test(path) ||
     path.endsWith(".tgz"))) throw new ReceiverError("private_state_in_archive");
 
-  await execute("npm", ["install", "--prefix", directory, "--omit=dev", join(directory, archive.filename)], {
+  await execute("npm", [
+    "install", "--prefix", directory, "--omit=dev", "--legacy-peer-deps",
+    join(directory, archive.filename),
+  ], {
     timeout: 120_000,
     maxBuffer: 4 * 1024 * 1024,
   });
   const installed = join(directory, "node_modules", "pi-primitive-receiver");
   z.object({
-    private: z.literal(true),
+    private: z.literal(false).optional(),
+    license: z.literal("MIT"),
+    peerDependencies: z.object({
+      "@earendil-works/pi-coding-agent": z.literal("*"),
+      typebox: z.literal("*"),
+    }),
     pi: z.object({ extensions: z.array(z.literal("./index.ts")).length(1) }),
   }).parse(JSON.parse(await readFile(join(installed, "package.json"), "utf8")));
 
@@ -58,6 +66,7 @@ try {
   if (!extension.tools.has("primitive_connect") ||
       !extension.tools.has("primitive_status")) throw new ReceiverError("installed_tools_missing");
   await readFile(join(installed, "skills", "primitive-receiver", "SKILL.md"), "utf8");
+  await readFile(join(installed, "LICENSE"), "utf8");
   console.log(JSON.stringify({
     productionInstall: "passed",
     upstreamPiLoader: "passed",
