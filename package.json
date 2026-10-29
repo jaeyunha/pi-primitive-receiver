@@ -1,0 +1,42 @@
+{
+  "name": "pi-primitive-receiver",
+  "private": true,
+  "description": "Private Primitive mail receiving and idle wake for Pi-compatible harnesses",
+  "license": "UNLICENSED",
+  "keywords": ["pi-package"],
+  "engines": { "node": ">=22" },
+  "files": [
+    "index.ts",
+    "entry.ts",
+    "configuration.ts",
+    "schema.ts",
+    "primitive.ts",
+    "primitive-policy.d.ts",
+    "queue.ts",
+    "receiver.ts",
+    "transport.ts",
+    "pi.ts",
+    "accept.mjs",
+    "README.md"
+  ],
+  "version": "0.1.0",
+  "type": "module",
+  "pi": { "extensions": ["./index.ts"] },
+  "scripts": {
+    "check": "tsc --noEmit",
+    "lint": "oxlint --deny-warnings",
+    "test": "bun test",
+    "verify:package": "bun scripts/verify-distribution.ts"
+  },
+  "dependencies": {
+    "primitive": "1.73.0",
+    "zod": "^4.1.0"
+  },
+  "devDependencies": {
+    "@earendil-works/pi-coding-agent": "1.4.0",
+    "@types/bun": "latest",
+    "typescript": "^5.9.0",
+    "oxlint": "1.89.0",
+    "oxfmt": "0.74.0"
+  }
+}

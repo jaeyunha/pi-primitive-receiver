@@ -1,0 +1,21 @@
+{
+  "plugins": ["typescript", "import", "oxc"],
+  "categories": { "correctness": "error", "suspicious": "error" },
+  "rules": {
+    "typescript/no-explicit-any": "error",
+    "typescript/no-non-null-assertion": "error",
+    "typescript/consistent-type-imports": "error",
+    "typescript/ban-ts-comment": "error",
+    "import/no-default-export": "error",
+    "no-empty": "error",
+    "no-fallthrough": "error",
+    "prefer-const": "error"
+  },
+  "ignorePatterns": ["node_modules/**"],
+  "overrides": [
+    {
+      "files": ["index.ts"],
+      "rules": { "import/no-default-export": "off" }
+    }
+  ]
+}
